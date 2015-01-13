@@ -1,7 +1,11 @@
+var uuid = require('node-uuid')
+
+var fs = require('fs')
 var restify = require('restify')
 var d3 = require('d3')
-var fs = require('fs')
+
 var morgan = require('morgan')
+
 
 var accessLogStream = fs.createWriteStream(__dirname + '/access.log', {flags: 'a'})
 
@@ -22,24 +26,28 @@ server.use(
 );
 
 server.get('/', function(req,res,next){
-  res.send([
-  { description: 'a REST API for random data for generative art'},
-  { author: 'http://twitter.com/billautomata'},
-  { example_use: "http://generative.engineering/random/normal/100" },
-  {  directory: [
-      '/random/normal/:count',
-      '/random/logNormal/:count'
+  res.send(
+    [
+      { description: 'a REST API for random data for generative art'},
+      { author: 'http://twitter.com/billautomata'},
+      { example_use: "http://generative.engineering/random/normal/100" },
+      {  directory: [
+          '/random/normal/:count',
+          '/random/logNormal/:count',
+          '/uuid/'
+        ]
+      },
+      {  coming_soon:[
+          '/noise/perlin/:x/:y',
+          '/noise/perlin/:x/:y/:z',
+          '/noise/simplex/:x/:y',
+          '/noise/simplex/:x/:y:z'
+        ]
+      }
     ]
-  },
-  {  coming_soon:[
-      '/noise/perlin/:x/:y',
-      '/noise/perlin/:x/:y/:z',
-      '/noise/simplex/:x/:y',
-      '/noise/simplex/:x/:y:z'
-    ]
-  }
-  ]
-)
+  ) // end of res.send
+
+
 })
 
 server.get('/random/:type/:count', return_random_numbers)
@@ -72,3 +80,10 @@ function return_random_numbers(req,res,next){
   return next()
 
 }
+
+server.get('/uuid', function(req,res,next){
+
+  res.send(uuid.v4())
+  return next()
+
+})
