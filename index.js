@@ -1,22 +1,20 @@
-var uuid = require('node-uuid')
-
 var fs = require('fs')
-var restify = require('restify')
+
 var d3 = require('d3')
-
+var uuid = require('node-uuid')
 var morgan = require('morgan')
+var restify = require('restify')
 
-
+// create stream for morgan log
 var accessLogStream = fs.createWriteStream(__dirname + '/access.log', {flags: 'a'})
 
-
 var server = restify.createServer()
-server.listen(8001)
+server.listen(8001) // start server
 
 // setup the logger
 server.use(morgan(':date[iso]\t:remote-addr\t:url\t:response-time\t:user-agent', {stream: accessLogStream}))
 
-
+// enable CORS
 server.use(
   function crossOrigin(req,res,next){
     res.header("Access-Control-Allow-Origin", "*");
@@ -28,8 +26,9 @@ server.use(
 server.get('/', function(req,res,next){
   res.send(
     [
-      { description: 'a REST API for random data for generative art'},
+  { description: 'REST API for generative art datasets'},
       { author: 'http://twitter.com/billautomata'},
+      { github: 'https://github.com/billautomata/generative.engineering' }
       { example_use: "http://generative.engineering/random/normal/100" },
       {  directory: [
           '/random/normal/:count',
