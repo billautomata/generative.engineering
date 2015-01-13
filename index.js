@@ -1,3 +1,4 @@
+var crypto = require('crypto')
 var fs = require('fs')
 
 var d3 = require('d3')
@@ -89,5 +90,22 @@ server.get('/uuid', function(req,res,next){
   res.write(uuid.v4())
   res.end()
   return next()
+
+})
+
+server.get('/crypto/bytes/:count', function(req,res,next){
+
+  var count = parseInt(req.params.count)
+  if(count > 4096){
+    count = 4096
+  } else if(count <= 0){
+    count = 1
+  }
+
+  crypto.randomBytes(count,function(ex,buf){
+    res.write(buf.toString('base64'))
+    res.end()
+    return next()
+  })
 
 })
