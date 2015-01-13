@@ -17,7 +17,8 @@ server.get('/', function(req,res,next){
     directory: [
     '/random/normal/',
     '/random/logNormal/'
-  ]
+  ],
+  example_use: "http://generative.engineering/random/normal/100"
   })
 })
 
