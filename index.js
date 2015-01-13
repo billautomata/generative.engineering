@@ -25,6 +25,10 @@ function return_random_numbers(req,res,next){
   var m = []
   console.log(typeof count)
 
+  if(count > 1000){
+    count = 1000
+  }
+
  if (type==='normal' || type === 'logNormal') {
 
     for(var i = 0; i < count; i++){
