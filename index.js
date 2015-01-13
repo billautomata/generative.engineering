@@ -14,11 +14,17 @@ server.use(
 
 server.get('/', function(req,res,next){
   res.send([
-  { description: 'an http api for random data for generative art'},
+  { description: 'a REST API for random data for generative art'},
   { example_use: "http://generative.engineering/random/normal/100" },
   {  directory: [
-      '/random/normal/',
-      '/random/logNormal/'
+      '/random/normal/:count',
+      '/random/logNormal/:count'
+    ]
+  },
+  {  coming_soon:[
+      '/noise/perlin/:x/:y',
+      '/noise/perlin/:x/:y/:z',
+      '/noise/simplex/x/y'
     ]
   }
   ]
