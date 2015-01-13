@@ -13,13 +13,15 @@ server.use(
 );
 
 server.get('/', function(req,res,next){
-  res.send({
-    directory: [
-    '/random/normal/',
-    '/random/logNormal/'
-  ],
-  example_use: "http://generative.engineering/random/normal/100"
-  })
+  res.send([
+  { example_use: "http://generative.engineering/random/normal/100" },
+  {  directory: [
+      '/random/normal/',
+      '/random/logNormal/'
+    ]
+  }
+  ]
+)
 })
 
 server.get('/random/:type/:count', return_random_numbers)
