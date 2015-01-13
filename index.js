@@ -10,7 +10,7 @@ var server = restify.createServer()
 server.listen(8001)
 
 // setup the logger
-server.use(morgan('combined', {stream: accessLogStream}))
+server.use(morgan(':date[iso]\t:remote-addr\t:url\t:response-time\t:user-agent', {stream: accessLogStream}))
 
 
 server.use(
