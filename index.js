@@ -28,7 +28,7 @@ server.get('/', function(req,res,next){
     [
       { description: 'REST API for generative art datasets'},
       { author: 'http://twitter.com/billautomata'},
-      { github: 'https://github.com/billautomata/generative.engineering' }
+    { github: 'https://github.com/billautomata/generative.engineering' },
       { example_use: "http://generative.engineering/random/normal/100" },
       {  directory: [
           '/random/normal/:count',
