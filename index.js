@@ -15,6 +15,7 @@ server.use(
 server.get('/', function(req,res,next){
   res.send([
   { description: 'a REST API for random data for generative art'},
+  { author: 'http://twitter.com/billautomata'},
   { example_use: "http://generative.engineering/random/normal/100" },
   {  directory: [
       '/random/normal/:count',
