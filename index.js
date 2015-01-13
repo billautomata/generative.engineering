@@ -14,7 +14,7 @@ server.use(
 
 server.get('/', function(req,res,next){
   res.send([
-  { description: 'an http api for random data for generative art'}
+  { description: 'an http api for random data for generative art'},
   { example_use: "http://generative.engineering/random/normal/100" },
   {  directory: [
       '/random/normal/',
