@@ -26,7 +26,7 @@ server.use(
 server.get('/', function(req,res,next){
   res.send(
     [
-  { description: 'REST API for generative art datasets'},
+      { description: 'REST API for generative art datasets'},
       { author: 'http://twitter.com/billautomata'},
       { github: 'https://github.com/billautomata/generative.engineering' }
       { example_use: "http://generative.engineering/random/normal/100" },
