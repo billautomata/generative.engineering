@@ -1,8 +1,17 @@
 var restify = require('restify')
 var d3 = require('d3')
+var fs = require('fs')
+var morgan = require('morgan')
+
+var accessLogStream = fs.createWriteStream(__dirname + '/access.log', {flags: 'a'})
+
 
 var server = restify.createServer()
 server.listen(8001)
+
+// setup the logger
+server.use(morgan('combined', {stream: accessLogStream}))
+
 
 server.use(
   function crossOrigin(req,res,next){
