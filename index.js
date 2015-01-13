@@ -36,7 +36,8 @@ server.get('/', function(req,res,next){
           '/uuid/'
         ]
       },
-      {  coming_soon:[
+      {
+        coming_soon:[
           '/noise/perlin/:x/:y',
           '/noise/perlin/:x/:y/:z',
           '/noise/simplex/:x/:y',
@@ -45,6 +46,8 @@ server.get('/', function(req,res,next){
       }
     ]
   ) // end of res.send
+  res.end()
+  return next()
 
 
 })
@@ -76,6 +79,7 @@ function return_random_numbers(req,res,next){
   }
 
   res.send(m)
+  res.end()
   return next()
 
 }
