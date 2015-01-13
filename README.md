@@ -8,3 +8,4 @@ list of endpoints
 * `GET` `/random/normal/:count`
 * `GET` `/random/logNormal/:count`
 * `GET` `/uuid/`
+* `GET` `/crypto/bytes/:count`
