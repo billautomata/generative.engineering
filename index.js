@@ -24,7 +24,8 @@ server.get('/', function(req,res,next){
   {  coming_soon:[
       '/noise/perlin/:x/:y',
       '/noise/perlin/:x/:y/:z',
-      '/noise/simplex/x/y'
+      '/noise/simplex/:x/:y',
+      '/noise/simplex/:x/:y:z'
     ]
   }
   ]
