@@ -83,7 +83,8 @@ function return_random_numbers(req,res,next){
 
 server.get('/uuid', function(req,res,next){
 
-  res.send(uuid.v4())
+  res.write(uuid.v4())
+  res.end()
   return next()
 
 })
