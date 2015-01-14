@@ -109,3 +109,14 @@ server.get('/crypto/bytes/:count', function(req,res,next){
   })
 
 })
+
+server.get('/testing', function(req,res,next){
+
+  console.log(req.connection.remoteAddress)
+  //console.log(req.connection)
+  res.write('ok')
+  res.end()
+  next()
+
+
+})
