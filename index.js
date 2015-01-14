@@ -11,8 +11,6 @@ var accessLogStream = fs.createWriteStream(__dirname + '/access.log', {flags: 'a
 
 var server = restify.createServer()
 
-server.enable('trust proxy')
-
 server.listen(8001) // start server
 
 // setup the logger
@@ -116,7 +114,7 @@ server.get('/crypto/bytes/:count', function(req,res,next){
 server.get('/testing', function(req,res,next){
 
 
-  console.log(req.headers)
+  console.log(req.headers['x-forwarded-for'])
   console.log(req.ip)
   //console.log(req.connection)
   res.write('ok')
