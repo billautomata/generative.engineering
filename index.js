@@ -3,6 +3,19 @@ var fs = require('fs')
 
 var d3 = require('d3')
 var uuid = require('node-uuid')
+
+var marked = require('marked')
+var index_html
+
+fs.readFile('./README.md',{type:'utf8'}, function(err,data){
+    //console.log(data.toString())
+    index_html = "<!DOCTYPE html> <html><title>Hello Strapdown</title> <xmp theme=\"united\" style=\"display:none;\">"
+    index_html += marked(data.toString())
+    index_html += '</xmp><script src="http://strapdownjs.com/v/0.2/strapdown.js"></script></html>'
+})
+
+
+
 var morgan = require('morgan')
 var restify = require('restify')
 
@@ -32,34 +45,47 @@ server.use(
 );
 
 server.get('/', function(req,res,next){
-  res.send(
-    [
-      { description: 'REST API for generative art datasets'},
-      { author: 'http://twitter.com/billautomata'},
-    { github: 'https://github.com/billautomata/generative.engineering' },
-      { example_use: "http://generative.engineering/random/normal/100" },
-      {  directory: [
-          '/random/normal/:count',
-          '/random/logNormal/:count',
-          '/uuid/',
-          '/noise/perlin/'
-        ]
-      },
-      {
-        coming_soon:[
-          '/noise/perlin/:x/:y',
-          '/noise/perlin/:x/:y/:z',
-          '/noise/simplex/:x/:y',
-          '/noise/simplex/:x/:y:z'
-        ]
-      }
-    ]
-  ) // end of res.send
-  res.end()
-  return next()
 
+  res.header('Location', 'https://github.com/billautomata/generative.engineering')
+  res.send(302)
+  next()
+
+  // res.write(index_html)
+  // res.end()
+  // next()
 
 })
+
+//
+// server.get('/', function(req,res,next){
+//   res.send(
+//     [
+//       { description: 'REST API for generative art datasets'},
+//       { author: 'http://twitter.com/billautomata'},
+//     { github: 'https://github.com/billautomata/generative.engineering' },
+//       { example_use: "http://generative.engineering/random/normal/100" },
+//       {  directory: [
+//           '/random/normal/:count',
+//           '/random/logNormal/:count',
+//           '/uuid/',
+//           '/noise/perlin/'
+//         ]
+//       },
+//       {
+//         coming_soon:[
+//           '/noise/perlin/:x/:y',
+//           '/noise/perlin/:x/:y/:z',
+//           '/noise/simplex/:x/:y',
+//           '/noise/simplex/:x/:y:z'
+//         ]
+//       }
+//     ]
+//   ) // end of res.send
+//   res.end()
+//   return next()
+//
+//
+// })
 
 server.get('/random/:type/:count', return_random_numbers)
 
