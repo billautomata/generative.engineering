@@ -9,7 +9,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "d3": "^3.5.3",
     "marked": "^0.3.2",
     "morgan": "^1.5.1",
     "node-uuid": "^1.4.2",

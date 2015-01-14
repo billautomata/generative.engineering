@@ -1,7 +1,7 @@
 var crypto = require('crypto')
 var fs = require('fs')
 
-var d3 = require('d3')
+//var d3 = require('d3')
 var uuid = require('node-uuid')
 
 var marked = require('marked')
@@ -106,7 +106,8 @@ function return_random_numbers(req,res,next){
  if (type==='normal' || type === 'logNormal') {
 
     for(var i = 0; i < count; i++){
-      m.push(d3.random[type]()())
+      //m.push(d3.random[type]()())
+      m.push(Math.random())
     }
 
   } else {
