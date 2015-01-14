@@ -21,7 +21,7 @@ For example, `noise/x/0.1/y/0.44` would parse into `{ x : 0.1, y : 0.44 }`
   * yields results for the following parameters
     * x `0.1`
     * y `0.33`
-    * z `0.91`
+    * z `-0.91`
       * optional, defaults to 2D function if not present
     * seed `256`
       * range: `[0.0,1.0]` or `[0,65536]`
