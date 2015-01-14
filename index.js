@@ -6,6 +6,12 @@ var uuid = require('node-uuid')
 var morgan = require('morgan')
 var restify = require('restify')
 
+var Noise = require('noisejs')
+var noise = new Noise.Noise()
+
+noise.seed(3)
+console.log(noise.perlin2(0.1,0.3))
+
 // create stream for morgan log
 var accessLogStream = fs.createWriteStream(__dirname + '/access.log', {flags: 'a'})
 
@@ -35,7 +41,8 @@ server.get('/', function(req,res,next){
       {  directory: [
           '/random/normal/:count',
           '/random/logNormal/:count',
-          '/uuid/'
+          '/uuid/',
+          '/noise/perlin/'
         ]
       },
       {
@@ -113,13 +120,82 @@ server.get('/crypto/bytes/:count', function(req,res,next){
 
 server.get('/testing', function(req,res,next){
 
-
   console.log(req.headers['x-forwarded-for'])
-  console.log(req.ip)
-  //console.log(req.connection)
-  res.write('ok')
+  res.write(req.headers['x-forwarded-for'])
   res.end()
   next()
 
+
+})
+
+server.get('/stats', function(req,res,next){
+
+  res.send('stats')
+  res.end()
+  next()
+})
+
+
+server.get(/\/noise(.*)/ , function(req,res,next){
+
+  var params = {}
+
+  var args = req.params[0].split('/')
+
+  if(args.length <= 2 ){
+    res.send({example:'http://generative.engineering/noise/simplex/seed/256/x/0.113/y/0.001/z/-0.32'})
+    next()
+  }
+
+  var which_noise = 'perlin'
+  var seed, x, y, z
+
+  for(var i = 0; i < args.length; i++){
+
+    if(args[i] === 'simplex'){
+      which_noise = 'simplex'
+    } else {
+      if(args[i] === 'x'){
+        x = parseFloat(args[i+1])
+        i += 1
+      } else if(args[i] === 'y'){
+        y = parseFloat(args[i+1])
+        i += 1
+      } else if(args[i] === 'z'){
+        z = parseFloat(args[i+1])
+        i += 1
+      } else if(args[i] === 'seed'){
+        seed = parseFloat(args[i+1])
+        i += 1
+      }
+
+    }
+  }
+
+  if(seed !== undefined){
+    noise.seed(seed)
+  }
+
+  var m
+
+  if(which_noise === 'perlin'){
+    if(z === undefined){
+      m = noise.perlin2(x,y)
+    } else {
+      m = noise.perlin3(x,y,z)
+    }
+  } else {
+
+    if(z === undefined){
+      m = noise.simplex2(x,y)
+      console.log(noise.simplex)
+    } else {
+      m = noise.simplex3(x,y,z)
+    }
+
+  }
+
+  res.send([m])
+  next()
 
 })

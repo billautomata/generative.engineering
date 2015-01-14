@@ -11,7 +11,10 @@
   "dependencies": {
     "d3": "^3.5.3",
     "morgan": "^1.5.1",
+    "noisejs": "^2.1.0",
     "restify": "^2.8.4",
+    "rng": "^0.2.2",
+    "simplex-noise": "^2.1.1",
     "uuid": "^2.0.1"
   }
 }

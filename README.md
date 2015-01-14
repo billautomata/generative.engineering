@@ -9,3 +9,19 @@ list of endpoints
 * `GET` `/random/logNormal/:count`
 * `GET` `/uuid/`
 * `GET` `/crypto/bytes/:count`
+
+
+####noise
+This endpoint accepts a series of optional and require parameters.  Passing `simplex` or `perlin` in the path will set the type of noise.  Passing `seed` `x` `y` or `z` the parser will take the number in the path after the key.  For example, `/x/0.1/y/0.44` would parse into `{ x : 0.1, y : 0.44 }`
+* `GET` `/noise/:type/x/{number}/y/{number}/z/{number}/:seed`
+* `example` http://generative.engineering/noise/simplex/seed/256/x/0.1/y/0.33/z/-0.91
+  * yields results for the following parameters
+    * x `0.1`
+    * y `0.33`
+    * z `0.91`
+      * optional, defaults to 2D function if not present
+    * seed `256`
+      * range: `[0.0,1.0]` or `[0,65536]`
+      * optional, defaults to static random seed
+    * type `simplex`
+      * optional, defaults to `perlin`
